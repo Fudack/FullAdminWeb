@@ -29,4 +29,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('inventario/', inventario.views.invetario, name='inventario'),
     path('contabilidad/', inventario.views.contabilidad, name='contabilidad'),
+    path('recursosHumanos/', inventario.views.recursosHumanos, name='recursosHumanos'),
+    path('facturacion/', inventario.views.facturacion, name='facturacion')
 ]
