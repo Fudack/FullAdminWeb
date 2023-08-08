@@ -1,0 +1,29 @@
+{% extends 'base-inicio.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="main-box">
+        <h1>Bienvenido(a) a FullAdmin</h1>
+        <p>Selecciona una función:</p>
+
+        <div class="card-container">
+            <div class="card">
+                <a href="{% url 'inventario' %}">
+                    <i class="fa-solid fa-warehouse"></i>
+                    <h2>Inventario</h2>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="{% url 'contabilidad' %}">
+                    <i class="fa-solid fa-calculator"></i>
+                    <h2>Contabilidad</h2>
+                </a>
+            </div>
+        <!-- Agrega más tarjetas según las funciones de tu web -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
