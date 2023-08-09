@@ -1,7 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}Inventario{% endblock %}
+
 {% block content %}
+    <h1>Inventario de Productos</h1>
 
-<h1>inventario</h1>
+    <button id="open-modal">Agregar Producto</button>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Agregar Producto</h2>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+        </form>
+    </div>
+    </div>
+
+    <h2>Lista de Productos</h2>
+    <ul>
+    {% for producto in productos %}
+        <li>{{ producto.nombre }} - {{ producto.descripcion }}</li>
+    {% endfor %}
+    </ul>
+
+    <script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("open-modal");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+    </script>
 {% endblock %}

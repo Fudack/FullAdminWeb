@@ -17,6 +17,9 @@
                     {% if user.is_authenticated %}
                     <li class="sesion"><p> Hola, {{ user.username }} </p></li>
                     <li><a href="{% url 'index' %}">Inicio</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'register' %}">Registrar Usuario</a></li>
+                        {% endif %}
                     <li><a href="#">Soporte</a></li>
                     <li class="sesion"><a href="{% url 'logout' %}">Cerar Sesion</a></li>
                     {% else %}
