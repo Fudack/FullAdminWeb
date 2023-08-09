@@ -8,12 +8,12 @@
     <!-- Modal -->
     <div id="myModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
         <h2>Agregar Producto</h2>
         <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Guardar</button>
+        <button id="close-modal">Cerrar</button>
         </form>
     </div>
     </div>
@@ -21,27 +21,8 @@
     <h2>Lista de Productos</h2>
     <ul>
     {% for producto in productos %}
-        <li>{{ producto.nombre }} - {{ producto.descripcion }}</li>
+        <li>{{ producto.nombre }} - {{ producto.descripcion }} - {{ producto.precio_compra }} - {{ producto.precio_venta }} - {{ producto.stock }} - {{ producto.categoria }} - {{ producto.ubicacion }} </li>
     {% endfor %}
     </ul>
 
-    <script>
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("open-modal");
-    var span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-        modal.style.display = "none";
-        }
-    }
-    </script>
 {% endblock %}
