@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/inventario.css' %}">
+
+{% block title %}Inventario{% endblock %}
 
 {% block content %}
     <h1>Inventario de Productos</h1>
 
     <button id="open-modal">Agregar Producto</button>
+    
+    <form method="get" action="{% url 'inventario' %}">
+        <input type="text" name="q" placeholder="Buscar productos">
+        <button type="submit">Buscar</button>
+    </form>    
 
     <!-- Modal -->
     <div id="myModal" class="modal">
@@ -18,11 +27,13 @@
     </div>
     </div>
 
-    <h2>Lista de Productos</h2>
-    <ul>
-    {% for producto in productos %}
-        <li>{{ producto.nombre }} - {{ producto.descripcion }} - {{ producto.precio_compra }} - {{ producto.precio_venta }} - {{ producto.stock }} - {{ producto.categoria }} - {{ producto.ubicacion }} </li>
-    {% endfor %}
-    </ul>
+    <div id="listado_productos">
+        <h2>Lista de Productos</h2>
+        <ul>
+        {% for producto in productos %}
+            <ul>{{ producto.nombre }} - {{ producto.descripcion }} - {{ producto.precio_compra }} - {{ producto.precio_venta }} - {{ producto.stock }} - {{ producto.categoria }} - {{ producto.ubicacion }} </ul>
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}
