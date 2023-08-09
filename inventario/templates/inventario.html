@@ -8,7 +8,14 @@
     <h1>Inventario de Productos</h1>
 
     <button id="open-modal">Agregar Producto</button>
+
+    <form method="post" action="{% url 'inventario:export_data' %}">
+        {% csrf_token %}
+        <button type="submit">Exportar</button>
+    </form>
     
+    <button id="import" >Importar</button>
+
     <form method="get" action="{% url 'inventario' %}">
         <input type="text" name="q" placeholder="Buscar productos">
         <button type="submit">Buscar</button>
