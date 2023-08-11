@@ -9,9 +9,8 @@
 
     <button id="open-modal">Agregar Producto</button>
 
-    <form method="post" action="{% url 'inventario:export_data' %}">
-        {% csrf_token %}
-        <button type="submit">Exportar</button>
+    <form method="get" action="{% url 'inventario:export_data' %}">
+        <button type="submit" name='exportar'>Exportar</button>
     </form>
     
     <button id="import" >Importar</button>

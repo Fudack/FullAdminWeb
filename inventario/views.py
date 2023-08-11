@@ -8,6 +8,7 @@ import xlwt
 
 @login_required(login_url='login')
 def export_data(request, data):
+    print(data)
     response = HttpResponse(content_type='aplication/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="data_export.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
@@ -26,8 +27,12 @@ def export_data(request, data):
 def inventario(request):
     form = ProductForm()
     query = request.GET.get('q')
+    
     data = list(Productos.objects.all().values())
-    print(data)
+    
+    if request.GET.get('export'):
+        return export_data(request, data)
+    
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():

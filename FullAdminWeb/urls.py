@@ -20,6 +20,8 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from inicio.views import CustomLoginView, register, index
 
+app_name = 'inventario'
+
 urlpatterns = [
     path('', CustomLoginView.as_view(), name='home'),
     path('admin/', admin.site.urls),
