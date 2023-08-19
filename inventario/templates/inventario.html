@@ -6,40 +6,84 @@
 
 {% block content %}
     <h1>Inventario de Productos</h1>
-
+    {% csrf_token %}
     <button id="open-modal">Agregar Producto</button>
 
-    <form method="get" action="{% url 'inventario:export_data' %}">
-        <button type="submit" name='exportar'>Exportar</button>
+    <form method="get">
+        <button type="submit" name='exportar' value=" ">Exportar</button>
     </form>
-    
-    <button id="import" >Importar</button>
 
-    <form method="get" action="{% url 'inventario' %}">
+    <form method="get" value=''>
+        <button type="submit" name='formato' value=" ">Formato Vacio</button>
+    </form>
+
+    <form method="get">
         <input type="text" name="q" placeholder="Buscar productos">
         <button type="submit">Buscar</button>
-    </form>    
+    </form>
 
-    <!-- Modal -->
+    <form method="get">
+        <select name="u">
+            <option value=''>Todas las ubicacion</option>
+            {% for ubicacion in unique_ubicacion %}
+                <option value="{{ ubicacion }}">{{ ubicacion }}</option>
+            {% endfor %}
+        </select>
+        <select name="c">
+            <option value=''>Todas las categorías</option>
+            {% for category in unique_categories %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+    
+    
+
+    <!-- Modal Agregar -->
     <div id="myModal" class="modal">
-    <div class="modal-content">
-        <h2>Agregar Producto</h2>
-        <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-        <button id="close-modal">Cerrar</button>
+        <div class="modal-content">
+            <h2>Agregar Producto</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name='agregar'>Guardar</button>
+                <button id="close-modal">Cerrar</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Botón para abrir la modal de carga masiva -->
+    <button id="open-import-form">Cargar Datos Masivos</button>
+
+    <!-- Formulario de carga masiva (oculto por defecto) -->
+    <div id="import-form" style="display: none;">
+        <h2>Cargar Datos Masivos</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ excel_form.as_p }}
+            <button type="submit">Importar Datos</button>
         </form>
     </div>
-    </div>
+
+
 
     <div id="listado_productos">
         <h2>Lista de Productos</h2>
         <ul>
         {% for producto in productos %}
-            <ul>{{ producto.nombre }} - {{ producto.descripcion }} - {{ producto.precio_compra }} - {{ producto.precio_venta }} - {{ producto.stock }} - {{ producto.categoria }} - {{ producto.ubicacion }} </ul>
-            {% endfor %}
+            <li>
+                {{ producto.nombre }} - 
+                {{ producto.descripcion }} -
+                {{ producto.precio_compra }} -
+                {{ producto.precio_venta }} -
+                {{ producto.stock }} -
+                {{ producto.categoria }} -
+                {{ producto.ubicacion }}
+            </li>
+        {% endfor %}
         </ul>
     </div>
-
 {% endblock %}
