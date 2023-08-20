@@ -1,5 +1,5 @@
 from django.urls import path
-from inventario.views import import_data ,export_data, product_list, contabilidad, recursosHumanos, facturacion
+from inventario.views import export_data, product_list, contabilidad, recursosHumanos, facturacion
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from inicio.views import CustomLoginView, register, index
@@ -15,7 +15,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('inventario/', product_list, name='product_list'),  # Cambio de nombre para la vista principal
     path('export_data/', export_data, name='export_data'),
-    path('import_data/', import_data, name='import_data'),
     path('contabilidad/', contabilidad, name='contabilidad'),
     path('recursosHumanos/', recursosHumanos, name='recursosHumanos'),
     path('facturacion/', facturacion, name='facturacion')

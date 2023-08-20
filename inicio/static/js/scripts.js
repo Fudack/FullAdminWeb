@@ -18,5 +18,9 @@ btn_close.onclick = function() {
 
 
 openImportFormBtn.onclick = function() {
-    importForm.style.display = "block";
+    if (importForm.style.display === "block") {
+        importForm.style.display = "none";
+    } else {    
+        importForm.style.display = "block";
+    }
 }

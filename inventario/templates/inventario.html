@@ -23,12 +23,6 @@
     </form>
 
     <form method="get">
-        <select name="u">
-            <option value=''>Todas las ubicacion</option>
-            {% for ubicacion in unique_ubicacion %}
-                <option value="{{ ubicacion }}">{{ ubicacion }}</option>
-            {% endfor %}
-        </select>
         <select name="c">
             <option value=''>Todas las categorías</option>
             {% for category in unique_categories %}
@@ -64,7 +58,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ excel_form.as_p }}
-            <button type="submit">Importar Datos</button>
+            <button type="submit" name='importar'>Importar Datos</button>
         </form>
     </div>
 
@@ -75,6 +69,7 @@
         <ul>
         {% for producto in productos %}
             <li>
+                {{ producto.id }} -
                 {{ producto.nombre }} - 
                 {{ producto.descripcion }} -
                 {{ producto.precio_compra }} -
