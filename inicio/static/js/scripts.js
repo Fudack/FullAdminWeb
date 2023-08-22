@@ -6,6 +6,7 @@ var importForm = document.getElementById("import-form");
 var openImportFormBtn = document.getElementById("open-import-form");
 modal.style.display = "none";
 
+
 btn_open.onclick = function() {
     modal.style.display = "block";
     btn_open.style.display = "none";

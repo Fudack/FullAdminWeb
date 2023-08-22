@@ -7,78 +7,87 @@
 {% block content %}
     <h1>Inventario de Productos</h1>
     {% csrf_token %}
-    <button id="open-modal">Agregar Producto</button>
-
-    <form method="get">
-        <button type="submit" name='exportar' value=" ">Exportar</button>
-    </form>
-
-    <form method="get" value=''>
-        <button type="submit" name='formato' value=" ">Formato Vacio</button>
-    </form>
-
-    <form method="get">
-        <input type="text" name="q" placeholder="Buscar productos">
-        <button type="submit">Buscar</button>
-    </form>
-
-    <form method="get">
-        <select name="c">
-            <option value=''>Todas las categorías</option>
-            {% for category in unique_categories %}
+    <section id='filtros'>
+        <form method="get" >
+            <button type="submit" name='exportar' value=" ">Exportar</button>
+        </form>
+            
+        <form method="get" value='' >
+            <button type="submit" name='formato' value=" ">Formato Vacio</button>
+        </form>
+            
+        <form method="get">
+            <input type="text" name="q" placeholder="Buscar productos">
+            <button type="submit">Buscar</button>
+        </form>
+            
+        <form method="get">
+            <select name="c">
+                <option value=''>Todas las categorías</option>
+                {% for category in unique_categories %}
                 <option value="{{ category }}">{{ category }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Filtrar</button>
-    </form>
-    
-    
+                {% endfor %}
+                <button type="submit">Filtrar</button>
+        </form>
+    </select>
+        
+        
+        <button id="open-modal">Agregar Producto</button>
+        <!-- Modal Agregar -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h2>Agregar Producto</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name='agregar'>Guardar</button>
+                    <button id="close-modal">Cerrar</button>
+                </form>
+            </div>
+        </div>
+        
+        
 
-    <!-- Modal Agregar -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <h2>Agregar Producto</h2>
-            <form method="post">
+        <!-- Botón para abrir la modal de carga masiva -->
+        <button id="open-import-form">Cargar Datos Masivos</button>
+
+        <!-- Formulario de carga masiva (oculto por defecto) -->
+        <div id="import-form" style="display: none;">
+            <h2>Cargar Datos Masivos</h2>
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" name='agregar'>Guardar</button>
-                <button id="close-modal">Cerrar</button>
+                {{ excel_form.as_p }}
+                <button type="submit" name='importar'>Importar Datos</button>
             </form>
         </div>
-    </div>
-
-
-
-    <!-- Botón para abrir la modal de carga masiva -->
-    <button id="open-import-form">Cargar Datos Masivos</button>
-
-    <!-- Formulario de carga masiva (oculto por defecto) -->
-    <div id="import-form" style="display: none;">
-        <h2>Cargar Datos Masivos</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ excel_form.as_p }}
-            <button type="submit" name='importar'>Importar Datos</button>
-        </form>
-    </div>
-
+    </section>
 
 
     <div id="listado_productos">
         <h2>Lista de Productos</h2>
-        <ul>
-        {% for producto in productos %}
-            <li>
-                {{ producto.id }} -
-                {{ producto.nombre }} - 
-                {{ producto.descripcion }} -
-                {{ producto.precio_compra }} -
-                {{ producto.precio_venta }} -
-                {{ producto.stock }} -
-                {{ producto.categoria }} -
-                {{ producto.ubicacion }}
-            </li>
-        {% endfor %}
-        </ul>
+        <table class="default">
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Ubicación</th>
+            </tr>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.precio_compra }}</td>
+                <td>{{ producto.precio_venta }}</td>
+                <td>{{ producto.stock }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.ubicacion }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}

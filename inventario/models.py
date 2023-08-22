@@ -14,8 +14,8 @@ class Empleado(models.Model):
 class Productos(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField()
-    precio_compra = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_compra = models.IntegerField()
+    precio_venta = models.IntegerField()
     stock = models.PositiveIntegerField()
     categoria = models.CharField(max_length=50)
     ubicacion = models.CharField(max_length = 50)
